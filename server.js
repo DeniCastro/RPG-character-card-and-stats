@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 
@@ -9,8 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("."));
 
-// Paste your connection string here (replace <username> and <password>)
-const MONGO_URI = "mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/rpg_db?retryWrites=true&w=majority";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
   .connect(MONGO_URI)
@@ -22,7 +22,7 @@ app.get("/api/status", (req, res) => {
   res.json({ message: "RPG Backend Server is online and operational!" });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
