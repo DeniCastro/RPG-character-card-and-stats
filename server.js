@@ -1,28 +1,42 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const Character = require('./models/Character');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
 app.use(express.json());
-app.use(express.static("."));
 
-const MONGO_URI = process.env.MONGO_URI;
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/rpg-backend', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('MongoDB Connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("Connected to MongoDB Atlas successfully!"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
-
-// Status Endpoint
-app.get("/api/status", (req, res) => {
-  res.json({ message: "RPG Backend Server is online and operational!" });
+// Create a new character/entry
+app.post('/api/characters', async (req, res) => {
+    try {
+        const newChar = new Character(req.body);
+        const savedChar = await newChar.save();
+        res.status(201).json(savedChar);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
 });
 
-const PORT = process.env.PORT || 3000;
+// Get all characters
+app.get('/api/characters', async (req, res) => {
+    try {
+        const characters = await Character.find();
+        res.json(characters);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

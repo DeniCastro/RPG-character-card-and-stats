@@ -348,3 +348,51 @@ applyNpcXPButton.addEventListener("click", () => {
   actionResult.textContent =
     `${name} awarded ${actualGain} XP to the player. ${message}`;
 });
+
+// Select your submit button (make sure to adjust the selector to match your button's class or id)
+const applyButton = document.querySelector('.apply-btn');
+
+if (applyButton) {
+    applyButton.addEventListener('click', async (e) => {
+        e.preventDefault(); // Stop form from refreshing the page
+
+        // Grab input values based on their placeholders or IDs
+        const nameInput = document.querySelector('input[placeholder="Enter enemy name"]');
+        const hpInput = document.querySelector('input[placeholder="Enter HP"]');
+        const damageDealtInput = document.querySelector('input[placeholder="Damage dealt"]');
+        const damageReceivedInput = document.querySelector('input[placeholder="Damage received"]');
+        const xpInput = document.querySelector('input[placeholder="XP gained"]');
+
+        // Build the payload object matching your Mongoose schema
+        const characterData = {
+            type: "Enemy",
+            name: nameInput ? nameInput.value : "Unknown Enemy",
+            health: hpInput ? Number(hpInput.value) : 0,
+            damageDealt: damageDealtInput ? Number(damageDealtInput.value) : 0,
+            damageReceived: damageReceivedInput ? Number(damageReceivedInput.value) : 0,
+            xpGained: xpInput ? Number(xpInput.value) : 0
+        };
+
+        try {
+            // Send data to your Express backend
+            const response = await fetch('http://localhost:5000/api/characters', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(characterData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Success:', result);
+                alert('Character saved to MongoDB successfully!');
+            } else {
+                console.error('Server error:', result.error);
+            }
+        } catch (err) {
+            console.error('Failed to connect to backend:', err);
+        }
+    });
+}npn
