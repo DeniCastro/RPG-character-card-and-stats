@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 require('dotenv').config();
 
 const Character = require('./models/Character');
@@ -7,14 +8,12 @@ const Character = require('./models/Character');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware to parse incoming JSON and serve static frontend files
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/rpg-backend', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI);
 
 // Create a new character/entry
 app.post('/api/characters', async (req, res) => {

@@ -16,19 +16,19 @@
 </head>
 <body>
 
-  <!-- Fixed bar containing the panel buttons -->
+  <!-- Fixed sidebar navigation buttons -->
   <div class="fixed-white-bar">
-    <h2 id="characterButton" role="button" tabindex="0" aria-label="Open character stats">🎲</h2>
-    <h2 id="inventoryButton" role="button" tabindex="0" aria-label="Open inventory">👜</h2>
-    <h2 id="equipmentButton" role="button" tabindex="0" aria-label="Open equipment">⚔️</h2>
+    <h2 id="characterButton" role="button" tabindex="0" aria-label="Open character stats">🎲</h2> <!-- Toggles stats panel -->
+    <h2 id="inventoryButton" role="button" tabindex="0" aria-label="Open inventory">👜</h2>     <!-- Toggles inventory panel -->
+    <h2 id="equipmentButton" role="button" tabindex="0" aria-label="Open equipment">⚔️</h2>     <!-- Toggles equipment panel -->
   </div>
 
-  <!-- Side panel for stats, inventory, and equipment -->
+  <!-- Side panel container for stats, inventory, and equipment -->
   <div class="side-panel" id="sidePanel">
     <div id="character">
       <div id="characterBox">
 
-        <!-- Character stats -->
+        <!-- Character stats view -->
         <div id="characterStats" hidden>
           <p class="panel-title">Stats</p>
 
@@ -40,6 +40,7 @@
               alt="RPG character"
             >
 
+            <!-- DOM target IDs updated by script.js -->
             <p id="name">Name:</p>
             <p id="realm">Realm:</p>
             <p id="class">Class:</p>
@@ -53,11 +54,11 @@
           </div>
         </div>
 
-        <!-- Inventory and its item counter -->
+        <!-- Inventory content and item slots -->
         <div id="inventoryContent" hidden>
           <div class="inventory-header">
             <p class="panel-title">Inventory</p>
-            <p id="inventoryCounter">0/5</p>
+            <p id="inventoryCounter">0/5</p> <!-- Dynamic slot counter -->
           </div>
 
           <div class="panel-body">
@@ -88,7 +89,7 @@
           </div>
         </div>
 
-        <!-- Equipment slots -->
+        <!-- Equipment slots view -->
         <div id="equipmentContent" hidden>
           <p class="panel-title">Equipment</p>
 
@@ -134,7 +135,7 @@
     </div>
   </div>
 
-  <!-- Main page content -->
+  <!-- Main workspace content area -->
   <div id="pageContent">
     <h1>Character Card</h1>
 
@@ -142,7 +143,7 @@
       <div id="encounter">
         <div id="encounterMain">
 
-          <!-- Enemy and combat controls -->
+          <!-- Enemy encounter and combat controls -->
           <div id="boss">
             <h2>Enemy 👾</h2>
 
@@ -175,16 +176,18 @@
               </p>
 
               <p>
+                <!-- Triggers d20 combat resolution in script.js -->
                 <button id="applyDamageButton" class="glow-on-hover" type="button">
                   APPLY DAMAGE / RESOLVE
                 </button>
               </p>
             </div>
 
+            <!-- Displays roll outcome and combat messages -->
             <p id="actionResult" aria-live="polite"></p>
           </div>
 
-          <!-- NPC and XP rewards -->
+          <!-- NPC interaction and XP rewards -->
           <div id="npc">
             <h2>NPC 👤</h2>
 
@@ -199,6 +202,7 @@
             </p>
 
             <p>
+              <!-- Triggers direct XP award to player stats -->
               <button id="applyNpcXPButton" class="glow-on-hover" type="button">
                 APPLY XP TO PLAYER
               </button>
@@ -210,7 +214,7 @@
     </div>
   </div>
 
-  <!-- Game logic and button interactions -->
+  <!-- Linked JavaScript logic file -->
   <script src="./script.js"></script>
 </body>
 </html>

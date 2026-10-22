@@ -1,9 +1,12 @@
+/* Import Google/Fontshare custom fonts for styling titles and body text */
 @import url("https://api.fontshare.com/v2/css?f[]=aktura@400&f[]=nippo@300&display=swap");
 
 /* ===== GENERAL PAGE STYLES ===== */
 
+/* Ensure padding and borders do not affect total width/height calculations */
 * { box-sizing: border-box; }
 
+/* Global design variables for colors, panels, and shadows */
 :root {
   --bg: #050505;
   --bg-2: #140707;
@@ -19,12 +22,14 @@
   --shadow: rgba(0, 0, 0, 0.7);
 }
 
+/* Enable smooth scrolling across the html element */
 html { scroll-behavior: smooth; }
 
+/* Base body styles, dark theme gradient background, and typography setup */
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, white), transparent 28%), linear-gradient(135deg, #020202 0%, #0a0909 30%, #120707 100%);
+  background: radial-gradient(circle at top, white, transparent 28%), linear-gradient(135deg, #020202 0%, #0a0909 30%, #120707 100%);
   color: var(--ink);
   font-family: "Nippo", sans-serif;
   letter-spacing: 0.02em;
@@ -32,6 +37,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Adds a subtle CRT scanline overlay effect across the whole page */
 body::before {
   content: "";
   position: fixed;
@@ -42,17 +48,20 @@ body::before {
   opacity: 0.45;
 }
 
+/* Heading font styling using Aktura font */
 h1, .panel-title {
   font-family: 'Aktura', serif;
   letter-spacing: 0.08em;
 }
 
+/* Section heading font styling using Nippo font */
 h2 {
   font-family: 'Nippo', serif;
   font-size: 2.3rem;
   letter-spacing: 0.06em;
 }
 
+/* Main page header styling */
 h1 {
   margin: 0 0 1.25rem;
   color: black;
@@ -64,6 +73,8 @@ h1 {
 h2 { color: var(--blood); }
 h3 { color: var(--crimson); }
 p { line-height: 1.55; margin: 0; }
+
+/* Form label typography */
 label {
   display: block;
   margin-bottom: 7px;
@@ -77,6 +88,7 @@ label {
 
 /* ===== FIXED ICON BAR ===== */
 
+/* Fixed left-side navigation bar container */
 .fixed-white-bar {
   position: fixed;
   left: 0;
@@ -94,6 +106,7 @@ label {
   box-shadow: 10px 0 18px rgba(0, 0, 0, 0.28);
 }
 
+/* Individual icon button styling inside the fixed bar */
 .fixed-white-bar h2 {
   display: flex;
   align-items: center;
@@ -110,6 +123,7 @@ label {
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Hover and focus states for sidebar icon buttons */
 .fixed-white-bar h2:hover,
 .fixed-white-bar h2:focus-visible {
   border-color: var(--crimson);
@@ -121,6 +135,7 @@ label {
 
 /* ===== SIDE PANEL ===== */
 
+/* Collapsible side drawer panel */
 .side-panel {
   position: fixed;
   top: 0;
@@ -138,6 +153,7 @@ label {
   transition: width 0.3s ease, opacity 0.25s ease, visibility 0.3s ease;
 }
 
+/* Expanded state when the side panel is open */
 .side-panel.open {
   width: 350px;
   padding: 20px;
@@ -158,6 +174,7 @@ label {
   text-shadow: 0 0 10px rgba(255, 47, 47, 0.35);
 }
 
+/* Inner body container for side panel cards */
 .panel-body {
   display: flex;
   flex-direction: column;
@@ -204,6 +221,7 @@ label {
   margin: 0;
 }
 
+/* Counter badge pill showing slot capacity (e.g. 0/5) */
 #inventoryCounter {
   flex: 0 0 auto;
   margin: 0;
@@ -247,6 +265,8 @@ input {
 }
 
 input::placeholder { color: rgba(245, 234, 215, 0.45); }
+
+/* Input focus state styling */
 input:focus {
   outline: none;
   border-color: var(--blood);
@@ -263,12 +283,15 @@ input:focus {
   transition: margin-left 0.3s ease;
 }
 
+/* Shifts main content right when the sidebar panel is opened */
 body.sidebar-open #pageContent { margin-left: 414px; }
 
 
 /* ===== GAME AND ENCOUNTER LAYOUT ===== */
 
 #gameStats, #encounter { width: 100%; min-width: 0; }
+
+/* Two-column grid layout for Boss and NPC cards */
 #encounterMain {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -279,7 +302,7 @@ body.sidebar-open #pageContent { margin-left: 414px; }
 #boss, #npc {
   min-width: 0;
   padding: 22px;
-  background: linear-gradient(180deg, beige, beige));
+  background: linear-gradient(180deg, beige, beige);
   border: 1px solid var(--line);
   border-left: 4px solid var(--crimson);
   border-radius: 8px;
@@ -290,6 +313,8 @@ body.sidebar-open #pageContent { margin-left: 414px; }
 #boss p, #npc p { margin: 14px 0; }
 #damageControls { display: flex; flex-direction: column; gap: 8px; }
 #damageControls p { margin: 6px 0; }
+
+/* Combat log / action result message area */
 #actionResult {
   min-height: 24px;
   margin-top: 18px;
@@ -304,6 +329,7 @@ body.sidebar-open #pageContent { margin-left: 414px; }
 
 button { font: inherit; cursor: pointer; }
 
+/* Custom glowing button style */
 .glow-on-hover {
   width: 100%;
   min-height: 44px;
@@ -326,6 +352,7 @@ button { font: inherit; cursor: pointer; }
 }
 
 .glow-on-hover:active { transform: scale(0.98); }
+
 button:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
